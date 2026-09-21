@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../app_scope.dart';
 import '../../controllers/app_controller.dart';
+import '../../core/sound_effects.dart';
 import '../../domain/models/kanji.dart';
 import '../../domain/models/topic.dart';
 import '../../domain/progress/progress_engine.dart';
@@ -34,11 +35,13 @@ class _LearningScreenState extends State<LearningScreen> {
   void _reveal() {
     if (_revealed) return;
     setState(() => _revealed = true);
+    SoundEffects.playAppear();
     // First reveal stamps the kanji as "seen" (UNLEARNED → LEARNING).
     _app.progress.markSeen(_entry.char);
   }
 
   void _assess(Assessment assessment) {
+    if (assessment == Assessment.remembered) SoundEffects.playRemember();
     if (!_revealed) _reveal();
     _app.progress.assess(_entry.char, assessment);
     _advance();

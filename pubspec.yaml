@@ -36,6 +36,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   shared_preferences: ^2.5.3
+  # Plays the bundled UI sound effects (GitHub issue #6). Short mp3 assets are
+  # played in low-latency mode; see lib/core/sound_effects.dart.
+  audioplayers: ^6.4.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.4
@@ -63,6 +66,9 @@ flutter:
   assets:
     - assets/kanji.json
     - assets/topics.json
+    # UI sound effects (GitHub issue #6): appear.mp3 on card reveal,
+    # remember.mp3 on "I Remember".
+    - assets/sounds/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../app_scope.dart';
 import '../../controllers/app_controller.dart';
+import '../../core/sound_effects.dart';
 import '../../domain/models/kanji.dart';
 import '../../domain/progress/progress_engine.dart';
 import '../widgets/kanji_card.dart';
@@ -52,11 +53,13 @@ class _ReviewScreenState extends State<ReviewScreen> {
   void _reveal() {
     if (_revealed) return;
     setState(() => _revealed = true);
+    SoundEffects.playAppear();
     _app.progress.markSeen(_queue[_index]);
   }
 
   void _assess(Assessment assessment) {
     if (_queue.isEmpty || _isDone) return;
+    if (assessment == Assessment.remembered) SoundEffects.playRemember();
     if (!_revealed) _reveal();
     _app.progress.assess(_queue[_index], assessment);
     setState(() {
