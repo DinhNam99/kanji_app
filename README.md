@@ -1,5 +1,7 @@
 # Kanji Beginner
 
+[![CI](https://github.com/DinhNam99/kanji_app/actions/workflows/ci.yml/badge.svg)](https://github.com/DinhNam99/kanji_app/actions/workflows/ci.yml)
+
 A simple, offline-first Flutter app for learning basic Japanese kanji.
 
 For beginners: pick a topic, reveal each kanji (reading + meaning), and
@@ -33,6 +35,20 @@ Run the test suite (unit + integration widget tests):
 ```sh
 flutter test
 ```
+
+## CI/CD
+
+GitHub Actions automates the checks and packaging (no signing secrets required):
+
+- **CI** (`.github/workflows/ci.yml`) — on every PR to `main` and every push to
+  `main`: `flutter pub get`, a non-blocking `dart format` check, `flutter analyze`,
+  and `flutter test --coverage` (the coverage report is uploaded as an artifact).
+- **Release** (`.github/workflows/release.yml`) — on a `v*` tag (or manual
+  `workflow_dispatch`): builds a release **APK**, **AAB**, and an unsigned **iOS**
+  app, then attaches them to a GitHub Release. Android builds use the debug
+  signing config for now; configure a keystore before publishing to stores.
+
+The toolchain is pinned to Flutter `3.24.4` to match local development.
 
 ## How progress works
 
