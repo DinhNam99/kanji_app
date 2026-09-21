@@ -36,6 +36,13 @@ Run the test suite (unit + integration widget tests):
 flutter test
 ```
 
+For an HTML coverage report (LCOV + HTML, written to the gitignored `coverage/`):
+
+```sh
+./scripts/test_coverage.sh          # run tests, then write coverage/html/index.html
+./scripts/test_coverage.sh --open   # ...and open it in a browser
+```
+
 ## CI/CD
 
 GitHub Actions automates the checks and packaging (no signing secrets required):
