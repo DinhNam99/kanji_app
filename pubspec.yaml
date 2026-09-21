@@ -38,6 +38,7 @@ dependencies:
   shared_preferences: ^2.5.3
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.14.4
   flutter_test:
     sdk: flutter
 
@@ -88,3 +89,15 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+# Launcher icons — single source of truth in assets/icons/ (see GitHub issue #2).
+# Regenerate platform icons with:  dart run flutter_launcher_icons
+flutter_launcher_icons:
+  android: "ic_launcher"
+  ios: true
+  image_path: "assets/icons/japan.png"
+  # Opaque 1024x1024 flattening of japan.png (iOS rejects alpha channels).
+  image_path_ios: "assets/icons/japan_flat.png"
+  remove_alpha_ios: true
+  background_color_ios: "#FFFFFF"
+  min_sdk_android: 21
