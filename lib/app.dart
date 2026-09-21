@@ -56,6 +56,7 @@ class KanjiApp extends StatelessWidget {
 ThemeData buildTheme() {
   final scheme = ColorScheme.fromSeed(seedColor: const Color(0xFF3949AB));
   return ThemeData(
+    fontFamily: 'NotoSansJP',
     colorScheme: scheme,
     useMaterial3: true,
     scaffoldBackgroundColor: scheme.surfaceContainerLowest,
@@ -63,6 +64,7 @@ ThemeData buildTheme() {
       centerTitle: true,
       backgroundColor: scheme.surface,
       titleTextStyle: TextStyle(
+        fontFamily: 'NotoSansJP',
         color: scheme.onSurface,
         fontSize: 20,
         fontWeight: FontWeight.w600,
