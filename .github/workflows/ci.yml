@@ -1,0 +1,66 @@
+name: CI
+
+# Runs the gates the repo requires before a change can merge: `flutter analyze`
+# must stay clean and the full `flutter test` suite must pass (see AGENTS.md).
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  # Allow the release workflow (or any future workflow) to reuse these checks.
+  workflow_call:
+
+# A new push to the same PR/branch supersedes the previous run.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  # Pinned to the local toolchain (Flutter 3.24.4 / Dart 3.5.4) so CI matches dev.
+  FLUTTER_VERSION: "3.24.4"
+  FLUTTER_CHANNEL: stable
+
+jobs:
+  analyze-and-test:
+    name: Analyze & test
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      # Informational only: the codebase is not currently `dart format`-clean, so
+      # this must not fail the build. It surfaces drift without blocking PRs.
+      - name: Check formatting (non-blocking)
+        continue-on-error: true
+        run: dart format --output=none --set-exit-if-changed .
+
+      - name: Analyze
+        run: flutter analyze
+
+      # The suite loads the real bundled assets (~5.5MB kanji dataset + fonts)
+      # and real SharedPreferences, not fakes — see AGENTS.md → Testing gotchas.
+      - name: Run tests with coverage
+        run: flutter test --coverage
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-lcov
+          path: coverage/lcov.info
+          if-no-files-found: ignore
+          retention-days: 7
