@@ -82,5 +82,8 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('0 of 196 kanji learned'), findsOneWidget);
     expect(find.text('Progress reset.'), findsOneWidget);
+
+    // Developer-facing dataset diagnostics no longer live on Home (issue #10).
+    expect(find.textContaining('kanji records were skipped'), findsNothing);
   });
 }

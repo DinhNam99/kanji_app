@@ -39,6 +39,9 @@ void main() {
     }
     await tester.pumpAndSettle();
 
+    // Home shows the distinct "all caught up" Review state (issue #10, P2.2).
+    expect(find.text('All caught up!'), findsOneWidget);
+
     await tester.tap(find.text('Review'));
     await tester.pumpAndSettle();
 

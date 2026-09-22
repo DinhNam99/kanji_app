@@ -60,7 +60,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 <div class="container">
 
 <h1>kanji_app — Complete Call Flow &amp; Architecture Documentation</h1>
-<p class="subtitle">Generated from graphify knowledge graph: 391 nodes, 510 edges, 17 communities. Commit: 4008467</p>
+<p class="subtitle">Generated from graphify knowledge graph: 409 nodes, 548 edges, 18 communities. Commit: 3799cf0</p>
 
 <div class="nav">
     <a href="#overview">Architecture Overview</a>
@@ -72,6 +72,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
     <a href="#kanji-state-dart">kanji_state.dart</a>
     <a href="#kanji-dart">kanji.dart</a>
     <a href="#topic-dart">topic.dart</a>
+    <a href="#app-dart">app.dart</a>
     <a href="#progress-engine-dart">progress_engine.dart</a>
     <a href="#kana-util-dart">kana_util.dart</a>
     <a href="#japan-flag-app-icon-flat-opaque-variant-ios">Japan Flag App Icon Flat Opaque Variant (iOS)</a>
@@ -88,13 +89,13 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 flowchart LR
     EXTRACT_PIPELINE_5F350230("Extraction Pipeline<br/><small>43 nodes</small>")
     class EXTRACT_PIPELINE_5F350230 module;
-    BUILD_GRAPH_321CBB04("Graph Build<br/><small>135 nodes</small>")
+    BUILD_GRAPH_321CBB04("Graph Build<br/><small>112 nodes</small>")
     class BUILD_GRAPH_321CBB04 module;
-    CLI_SKILLS_9964CBB8("CLI &amp; Skill Installers<br/><small>44 nodes</small>")
+    CLI_SKILLS_9964CBB8("CLI &amp; Skill Installers<br/><small>29 nodes</small>")
     class CLI_SKILLS_9964CBB8 module;
-    TESTS_FIXTURES_B84B1DCC("Tests &amp; Fixtures<br/><small>52 nodes</small>")
+    TESTS_FIXTURES_B84B1DCC("Tests &amp; Fixtures<br/><small>101 nodes</small>")
     class TESTS_FIXTURES_B84B1DCC module;
-    PROGRESS_CONTROLLER_DART_4C79D31D("progress_controller.dart<br/><small>33 nodes</small>")
+    PROGRESS_CONTROLLER_DART_4C79D31D("progress_controller.dart<br/><small>26 nodes</small>")
     class PROGRESS_CONTROLLER_DART_4C79D31D module;
     KANJI_STATE_DART_AB75774C("kanji_state.dart<br/><small>25 nodes</small>")
     class KANJI_STATE_DART_AB75774C module;
@@ -102,6 +103,8 @@ flowchart LR
     class KANJI_DART_3E6BF657 module;
     TOPIC_DART_B836B999("topic.dart<br/><small>18 nodes</small>")
     class TOPIC_DART_B836B999 module;
+    APP_DART_89A8793A("app.dart<br/><small>14 nodes</small>")
+    class APP_DART_89A8793A module;
     PROGRESS_ENGINE_DART_3CA4C600("progress_engine.dart<br/><small>9 nodes</small>")
     class PROGRESS_ENGINE_DART_3CA4C600 module;
     KANA_UTIL_DART_E37E69C2("kana_util.dart<br/><small>7 nodes</small>")
@@ -112,18 +115,18 @@ flowchart LR
     class VISIBLEFORTESTING_9E9EA46D module;
     GRAPHIFY_SECTION_IN_AGENTS_MD_985B5851("graphify Section in AGENTS.md<br/><small>1 nodes</small>")
     class GRAPHIFY_SECTION_IN_AGENTS_MD_985B5851 module;
-    BUILD_GRAPH_321CBB04 -->|imports x10| TESTS_FIXTURES_B84B1DCC
+    BUILD_GRAPH_321CBB04 -->|imports x8| TESTS_FIXTURES_B84B1DCC
+    TESTS_FIXTURES_B84B1DCC -->|inherits x6| BUILD_GRAPH_321CBB04
+    BUILD_GRAPH_321CBB04 -->|imports x5| PROGRESS_CONTROLLER_DART_4C79D31D
+    BUILD_GRAPH_321CBB04 -->|references x4| TOPIC_DART_B836B999
     BUILD_GRAPH_321CBB04 -->|references x4| CLI_SKILLS_9964CBB8
     BUILD_GRAPH_321CBB04 -->|imports x4| EXTRACT_PIPELINE_5F350230
-    BUILD_GRAPH_321CBB04 -->|imports x4| PROGRESS_CONTROLLER_DART_4C79D31D
-    CLI_SKILLS_9964CBB8 -->|imports x4| BUILD_GRAPH_321CBB04
-    PROGRESS_CONTROLLER_DART_4C79D31D -->|imports x3| BUILD_GRAPH_321CBB04
-    BUILD_GRAPH_321CBB04 -->|references x3| TOPIC_DART_B836B999
     EXTRACT_PIPELINE_5F350230 -->|imports x3| TESTS_FIXTURES_B84B1DCC
-    CLI_SKILLS_9964CBB8 -->|imports x3| TESTS_FIXTURES_B84B1DCC
+    CLI_SKILLS_9964CBB8 -->|references x3| TESTS_FIXTURES_B84B1DCC
     PROGRESS_CONTROLLER_DART_4C79D31D -->|references x2| KANJI_STATE_DART_AB75774C
     PROGRESS_CONTROLLER_DART_4C79D31D -->|defines x2| CLI_SKILLS_9964CBB8
-    PROGRESS_CONTROLLER_DART_4C79D31D -->|imports x2| TESTS_FIXTURES_B84B1DCC
+    APP_DART_89A8793A -->|references x2| CLI_SKILLS_9964CBB8
+    APP_DART_89A8793A -->|defines x2| BUILD_GRAPH_321CBB04
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -140,7 +143,7 @@ flowchart LR
     <h4>Architecture Layers</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>Layer</th><th>Nodes</th><th>Communities</th></tr>
-      <tr><td>Extraction Pipeline</td><td>43</td><td><code>3</code></td></tr><tr><td>Graph Build</td><td>135</td><td><code>9, 2, 5, 7</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>44</td><td><code>6</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>52</td><td><code>0, 14</code></td></tr><tr><td>progress_controller.dart</td><td>33</td><td><code>1</code></td></tr><tr><td>kanji_state.dart</td><td>25</td><td><code>10</code></td></tr><tr><td>kanji.dart</td><td>21</td><td><code>4</code></td></tr><tr><td>topic.dart</td><td>18</td><td><code>8</code></td></tr><tr><td>progress_engine.dart</td><td>9</td><td><code>13</code></td></tr><tr><td>kana_util.dart</td><td>7</td><td><code>16</code></td></tr><tr><td>Japan Flag App Icon Flat Opaque Variant (iOS)</td><td>2</td><td><code>20</code></td></tr><tr><td>@visibleForTesting</td><td>1</td><td><code>11</code></td></tr><tr><td>graphify Section in AGENTS.md</td><td>1</td><td><code>21</code></td></tr>
+      <tr><td>Extraction Pipeline</td><td>43</td><td><code>3</code></td></tr><tr><td>Graph Build</td><td>112</td><td><code>9, 2, 7</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>29</td><td><code>6</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>101</td><td><code>0, 5, 14</code></td></tr><tr><td>progress_controller.dart</td><td>26</td><td><code>1</code></td></tr><tr><td>kanji_state.dart</td><td>25</td><td><code>10</code></td></tr><tr><td>kanji.dart</td><td>21</td><td><code>4</code></td></tr><tr><td>topic.dart</td><td>18</td><td><code>8</code></td></tr><tr><td>app.dart</td><td>14</td><td><code>12</code></td></tr><tr><td>progress_engine.dart</td><td>9</td><td><code>13</code></td></tr><tr><td>kana_util.dart</td><td>7</td><td><code>16</code></td></tr><tr><td>Japan Flag App Icon Flat Opaque Variant (iOS)</td><td>2</td><td><code>20</code></td></tr><tr><td>@visibleForTesting</td><td>1</td><td><code>11</code></td></tr><tr><td>graphify Section in AGENTS.md</td><td>1</td><td><code>21</code></td></tr>
     </table>
   </div>
   <div class="card">
@@ -152,12 +155,12 @@ flowchart LR
   <div class="card">
     <h4>Graph Report Highlights</h4>
     <ul>
-      <li>391 nodes · 510 edges · 17 communities (14 shown, 3 thin omitted)</li>
+      <li>409 nodes · 548 edges · 18 communities (15 shown, 3 thin omitted)</li>
       <li>Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 7 edges (avg confidence: 0.88)</li>
       <li>Token cost: 0 input · 0 output</li>
       <li>1. `AppController` - 6 edges</li>
-      <li>2. `Kanji Beginner` - 6 edges</li>
-      <li>3. `kanji_app Package` - 6 edges</li>
+      <li>2. `build` - 6 edges</li>
+      <li>3. `test_coverage.sh script` - 6 edges</li>
     </ul>
   </div>
 </div>
@@ -504,24 +507,24 @@ flowchart LR
 
 <!-- ====== 3. Graph Build ====== -->
 <h2 id="build-graph">3. Graph Build</h2>
-<p>Graph Build groups implementation around screendart, screens, widgets, kanji, mostly in ui/screens/learning_screen.dart, ui/widgets/kanji_card.dart, ui/screens/review_screen.dart. This section covers 135 nodes and 174 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Graph Build groups implementation around screendart, screens, learning, review, mostly in ui/screens/learning_screen.dart, ui/screens/review_screen.dart, ui/screens/home_screen.dart. This section covers 112 nodes and 148 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Graph Build (135 nodes, 174 edges)
+    %% Section: Graph Build (112 nodes, 148 edges)
     subgraph build_graph_External_generated_653891f5["External / generated"]
+        widgets_kanji_card_dart_8ef325b8("../widgets/kanji_card.dart")
         widgets_progress_bar_dart_7cef4317("../widgets/progress_bar.dart")
         app_scope_dart_3fae22cf("../../app_scope.dart")
         core_sound_effects_dart_89e2429c("../../core/sound effects.dart")
         domain_models_topic_dart_ac4d326d("../../domain/models/topic.dart")
-        widgets_kanji_card_dart_8ef325b8("../widgets/kanji_card.dart")
         app_dart_ea5aaf2f("../../app.dart")
-        widgets_topic_tile_dart_424abaeb("../widgets/topic_tile.dart")
-        colorscheme_6ecfd7d5("ColorScheme")
+        widgets_topic_card_dart_93e5335e("../widgets/topic_card.dart")
         kanji_get_7a490275("Kanji? get")
         route_learning_97933c61("Route /learning")
         route_progress_d890fbf5("Route /progress")
+        route_review_f9a13aea("Route /review")
     end
     lib_ui_screens_home_screen_945e15be("home_screen.dart")
     lib_ui_screens_learning_screen_81c33ff5("learning_screen.dart")
@@ -530,17 +533,19 @@ flowchart LR
     lib_ui_screens_settings_screen_a2183228("settings_screen.dart")
     lib_ui_screens_splash_screen_29824291("splash_screen.dart")
     lib_ui_screens_topic_detail_screen_195e6d62("topic_detail_screen.dart")
+    lib_ui_screens_learning_screen_81c33ff5 -->|imports| widgets_kanji_card_dart_8ef325b8
     lib_ui_screens_learning_screen_81c33ff5 -->|imports| widgets_progress_bar_dart_7cef4317
     lib_ui_screens_learning_screen_81c33ff5 -->|imports| app_scope_dart_3fae22cf
     lib_ui_screens_learning_screen_81c33ff5 -->|imports| core_sound_effects_dart_89e2429c
     lib_ui_screens_learning_screen_81c33ff5 -->|imports| domain_models_topic_dart_ac4d326d
-    lib_ui_screens_learning_screen_81c33ff5 -->|imports| widgets_kanji_card_dart_8ef325b8
     lib_ui_screens_review_screen_a8622b21 -->|imports| app_scope_dart_3fae22cf
     lib_ui_screens_review_screen_a8622b21 -->|imports| core_sound_effects_dart_89e2429c
     lib_ui_screens_review_screen_a8622b21 -->|imports| widgets_kanji_card_dart_8ef325b8
     lib_ui_screens_home_screen_945e15be -->|imports| app_dart_ea5aaf2f
     lib_ui_screens_home_screen_945e15be -->|imports| app_scope_dart_3fae22cf
-    lib_ui_screens_home_screen_945e15be -->|imports| widgets_topic_tile_dart_424abaeb
+    lib_ui_screens_home_screen_945e15be -->|imports| domain_models_topic_dart_ac4d326d
+    lib_ui_screens_home_screen_945e15be -->|imports| widgets_progress_bar_dart_7cef4317
+    lib_ui_screens_home_screen_945e15be -->|imports| widgets_topic_card_dart_93e5335e
     lib_ui_screens_progress_screen_ebd399a9 -->|imports| app_scope_dart_3fae22cf
     lib_ui_screens_progress_screen_ebd399a9 -->|imports| widgets_progress_bar_dart_7cef4317
     lib_ui_screens_settings_screen_a2183228 -->|imports| app_scope_dart_3fae22cf
@@ -548,18 +553,18 @@ flowchart LR
     lib_ui_screens_topic_detail_screen_195e6d62 -->|imports| app_scope_dart_3fae22cf
     lib_ui_screens_topic_detail_screen_195e6d62 -->|imports| domain_models_topic_dart_ac4d326d
     lib_ui_screens_topic_detail_screen_195e6d62 -->|imports| widgets_progress_bar_dart_7cef4317
-    %% Omitted for readability: 117 nodes, 0 edges
+    %% Omitted for readability: 94 nodes, 0 edges
+    class widgets_kanji_card_dart_8ef325b8 function;
     class widgets_progress_bar_dart_7cef4317 function;
     class app_scope_dart_3fae22cf function;
     class core_sound_effects_dart_89e2429c function;
     class domain_models_topic_dart_ac4d326d function;
-    class widgets_kanji_card_dart_8ef325b8 function;
     class app_dart_ea5aaf2f function;
-    class widgets_topic_tile_dart_424abaeb function;
-    class colorscheme_6ecfd7d5 klass;
+    class widgets_topic_card_dart_93e5335e function;
     class kanji_get_7a490275 klass;
     class route_learning_97933c61 api;
     class route_progress_d890fbf5 api;
+    class route_review_f9a13aea api;
     class lib_ui_screens_home_screen_945e15be function;
     class lib_ui_screens_learning_screen_81c33ff5 function;
     class lib_ui_screens_progress_screen_ebd399a9 function;
@@ -608,20 +613,28 @@ flowchart LR
   <td>3</td>
   <td><code>../../domain/models/topic.dart</code><br><small style="color:var(--muted)"></small></td>
   <td><span class="tag tag-func">Function</span></td>
-  <td><code>content_repository.dart</code><br><small style="color:var(--muted)">data/content/content_repository.dart</small><br><code>learning_screen.dart</code><br><small style="color:var(--muted)">ui/screens/learning_screen.dart</small><br><code>progress_controller.dart</code><br><small style="color:var(--muted)">lib/controllers/progress_controller.dart</small><br>+2 more</td>
+  <td><code>app_controller.dart</code><br><small style="color:var(--muted)">lib/controllers/app_controller.dart</small><br><code>content_repository.dart</code><br><small style="color:var(--muted)">data/content/content_repository.dart</small><br><code>home_screen.dart</code><br><small style="color:var(--muted)">ui/screens/home_screen.dart</small><br>+4 more</td>
   <td>No direct outbound edge</td>
   <td>../../domain/models/topic.dart node in project.</td>
 </tr>
 <tr>
   <td>4</td>
-  <td><code>home_screen.dart</code><br><small style="color:var(--muted)">ui/screens/home_screen.dart</small></td>
-  <td><span class="tag tag-func">Function</span></td>
+  <td><code>KanjiApp</code><br><small style="color:var(--muted)">lib/app.dart</small></td>
+  <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
-  <td><code>../../app.dart</code><br><code>../../app_scope.dart</code><br><code>../../domain/models/kanji state.dart</code><br>+2 more</td>
-  <td>home_screen.dart node in ui/screens/home_screen.dart.</td>
+  <td>No direct outbound edge</td>
+  <td>KanjiApp node in lib/app.dart.</td>
 </tr>
 <tr>
   <td>5</td>
+  <td><code>home_screen.dart</code><br><small style="color:var(--muted)">ui/screens/home_screen.dart</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>../../app.dart</code><br><code>../../app_scope.dart</code><br><code>../../domain/models/kanji state.dart</code><br>+4 more</td>
+  <td>home_screen.dart node in ui/screens/home_screen.dart.</td>
+</tr>
+<tr>
+  <td>6</td>
   <td><code>build</code><br><small style="color:var(--muted)">ui/screens/home_screen.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -629,20 +642,12 @@ flowchart LR
   <td>build node in ui/screens/home_screen.dart.</td>
 </tr>
 <tr>
-  <td>6</td>
+  <td>7</td>
   <td><code>count</code><br><small style="color:var(--muted)">ui/screens/home_screen.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
   <td>count node in ui/screens/home_screen.dart.</td>
-</tr>
-<tr>
-  <td>7</td>
-  <td><code>_DataWarningBanner</code><br><small style="color:var(--muted)">ui/screens/home_screen.dart</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>_DataWarningBanner node in ui/screens/home_screen.dart.</td>
 </tr>
 <tr>
   <td>8</td>
@@ -662,6 +667,14 @@ flowchart LR
 </tr>
 <tr>
   <td>10</td>
+  <td><code>onOpen</code><br><small style="color:var(--muted)">ui/screens/home_screen.dart</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>onOpen node in ui/screens/home_screen.dart.</td>
+</tr>
+<tr>
+  <td>11</td>
   <td><code>overall</code><br><small style="color:var(--muted)">ui/screens/home_screen.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -669,7 +682,7 @@ flowchart LR
   <td>overall node in ui/screens/home_screen.dart.</td>
 </tr>
 <tr>
-  <td>11</td>
+  <td>12</td>
   <td><code>_OverallCard</code><br><small style="color:var(--muted)">ui/screens/home_screen.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -677,7 +690,15 @@ flowchart LR
   <td>_OverallCard node in ui/screens/home_screen.dart.</td>
 </tr>
 <tr>
-  <td>12</td>
+  <td>13</td>
+  <td><code>resumeTopic</code><br><small style="color:var(--muted)">ui/screens/home_screen.dart</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>resumeTopic node in ui/screens/home_screen.dart.</td>
+</tr>
+<tr>
+  <td>14</td>
   <td><code>_ReviewCta</code><br><small style="color:var(--muted)">ui/screens/home_screen.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -685,15 +706,23 @@ flowchart LR
   <td>_ReviewCta node in ui/screens/home_screen.dart.</td>
 </tr>
 <tr>
-  <td>13</td>
-  <td><code>warnings</code><br><small style="color:var(--muted)">ui/screens/home_screen.dart</small></td>
+  <td>15</td>
+  <td><code>_TopicGrid</code><br><small style="color:var(--muted)">ui/screens/home_screen.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>warnings node in ui/screens/home_screen.dart.</td>
+  <td>_TopicGrid node in ui/screens/home_screen.dart.</td>
 </tr>
 <tr>
-  <td>14</td>
+  <td>16</td>
+  <td><code>topics</code><br><small style="color:var(--muted)">ui/screens/home_screen.dart</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>topics node in ui/screens/home_screen.dart.</td>
+</tr>
+<tr>
+  <td>17</td>
   <td><code>progress_screen.dart</code><br><small style="color:var(--muted)">ui/screens/progress_screen.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -701,7 +730,7 @@ flowchart LR
   <td>progress_screen.dart node in ui/screens/progress_screen.dart.</td>
 </tr>
 <tr>
-  <td>15</td>
+  <td>18</td>
   <td><code>build</code><br><small style="color:var(--muted)">ui/screens/progress_screen.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -709,7 +738,7 @@ flowchart LR
   <td>build node in ui/screens/progress_screen.dart.</td>
 </tr>
 <tr>
-  <td>16</td>
+  <td>19</td>
   <td><code>counts</code><br><small style="color:var(--muted)">ui/screens/progress_screen.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -717,7 +746,7 @@ flowchart LR
   <td>counts node in ui/screens/progress_screen.dart.</td>
 </tr>
 <tr>
-  <td>17</td>
+  <td>20</td>
   <td><code>name</code><br><small style="color:var(--muted)">ui/screens/progress_screen.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -725,7 +754,7 @@ flowchart LR
   <td>name node in ui/screens/progress_screen.dart.</td>
 </tr>
 <tr>
-  <td>18</td>
+  <td>21</td>
   <td><code>onTap</code><br><small style="color:var(--muted)">ui/screens/progress_screen.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -733,7 +762,7 @@ flowchart LR
   <td>onTap node in ui/screens/progress_screen.dart.</td>
 </tr>
 <tr>
-  <td>19</td>
+  <td>22</td>
   <td><code>overall</code><br><small style="color:var(--muted)">ui/screens/progress_screen.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -741,7 +770,7 @@ flowchart LR
   <td>overall node in ui/screens/progress_screen.dart.</td>
 </tr>
 <tr>
-  <td>20</td>
+  <td>23</td>
   <td><code>ProgressScreen</code><br><small style="color:var(--muted)">ui/screens/progress_screen.dart</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -749,7 +778,7 @@ flowchart LR
   <td>ProgressScreen node in ui/screens/progress_screen.dart.</td>
 </tr>
 <tr>
-  <td>21</td>
+  <td>24</td>
   <td><code>_SummaryCard</code><br><small style="color:var(--muted)">ui/screens/progress_screen.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -757,7 +786,7 @@ flowchart LR
   <td>_SummaryCard node in ui/screens/progress_screen.dart.</td>
 </tr>
 <tr>
-  <td>22</td>
+  <td>25</td>
   <td><code>_TopicProgressRow</code><br><small style="color:var(--muted)">ui/screens/progress_screen.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -765,7 +794,7 @@ flowchart LR
   <td>_TopicProgressRow node in ui/screens/progress_screen.dart.</td>
 </tr>
 <tr>
-  <td>23</td>
+  <td>26</td>
   <td><code>settings_screen.dart</code><br><small style="color:var(--muted)">ui/screens/settings_screen.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -773,7 +802,7 @@ flowchart LR
   <td>settings_screen.dart node in ui/screens/settings_screen.dart.</td>
 </tr>
 <tr>
-  <td>24</td>
+  <td>27</td>
   <td><code>build</code><br><small style="color:var(--muted)">ui/screens/settings_screen.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -781,7 +810,7 @@ flowchart LR
   <td>build node in ui/screens/settings_screen.dart.</td>
 </tr>
 <tr>
-  <td>25</td>
+  <td>28</td>
   <td><code>_confirmReset</code><br><small style="color:var(--muted)">ui/screens/settings_screen.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -789,7 +818,7 @@ flowchart LR
   <td>_confirmReset node in ui/screens/settings_screen.dart.</td>
 </tr>
 <tr>
-  <td>26</td>
+  <td>29</td>
   <td><code>SettingsScreen</code><br><small style="color:var(--muted)">ui/screens/settings_screen.dart</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -797,36 +826,12 @@ flowchart LR
   <td>SettingsScreen node in ui/screens/settings_screen.dart.</td>
 </tr>
 <tr>
-  <td>27</td>
+  <td>30</td>
   <td><code>splash_screen.dart</code><br><small style="color:var(--muted)">ui/screens/splash_screen.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td><code>../../app.dart</code><br><code>package:flutter/material.dart</code></td>
   <td>splash_screen.dart node in ui/screens/splash_screen.dart.</td>
-</tr>
-<tr>
-  <td>28</td>
-  <td><code>build</code><br><small style="color:var(--muted)">ui/screens/splash_screen.dart</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>build node in ui/screens/splash_screen.dart.</td>
-</tr>
-<tr>
-  <td>29</td>
-  <td><code>SplashScreen</code><br><small style="color:var(--muted)">ui/screens/splash_screen.dart</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>SplashScreen node in ui/screens/splash_screen.dart.</td>
-</tr>
-<tr>
-  <td>30</td>
-  <td><code>topic_detail_screen.dart</code><br><small style="color:var(--muted)">ui/screens/topic_detail_screen.dart</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>../../app_scope.dart</code><br><code>../../domain/models/topic.dart</code><br><code>../widgets/progress_bar.dart</code><br>+1 more</td>
-  <td>topic_detail_screen.dart node in ui/screens/topic_detail_screen.dart.</td>
 </tr>
 </table>
 
@@ -835,60 +840,55 @@ flowchart LR
     <h4>Key Files</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>ui/screens/learning_screen.dart</code></td><td>18 nodes</td></tr>
-<tr><td><code>ui/widgets/kanji_card.dart</code></td><td>16 nodes</td></tr>
+      <tr><td><code>ui/screens/learning_screen.dart</code></td><td>19 nodes</td></tr>
 <tr><td><code>ui/screens/review_screen.dart</code></td><td>15 nodes</td></tr>
+<tr><td><code>ui/screens/home_screen.dart</code></td><td>12 nodes</td></tr>
 <tr><td><code>AGENTS.md</code></td><td>10 nodes</td></tr>
-<tr><td><code>ui/screens/home_screen.dart</code></td><td>10 nodes</td></tr>
 <tr><td><code>ui/screens/progress_screen.dart</code></td><td>9 nodes</td></tr>
 <tr><td><code>ui/screens/topic_detail_screen.dart</code></td><td>6 nodes</td></tr>
-<tr><td><code>ui/widgets/progress_bar.dart</code></td><td>6 nodes</td></tr>
+<tr><td><code>ui/screens/settings_screen.dart</code></td><td>4 nodes</td></tr>
+<tr><td><code>pubspec.yaml</code></td><td>4 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: defines x82, references x40, inherits x21, imports x18. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: defines x61, references x33, imports x20, inherits x20. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
 
 <!-- ====== 4. CLI & Skill Installers ====== -->
 <h2 id="cli-skills">4. CLI &amp; Skill Installers</h2>
-<p>CLI &amp; Skill Installers groups implementation around app, controllerdart, controllers, appdart, mostly in lib/controllers/app_controller.dart, lib/app.dart, lib/app_scope.dart. This section covers 44 nodes and 47 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>CLI &amp; Skill Installers groups implementation around app, controllerdart, controllers, scopedart, mostly in lib/controllers/app_controller.dart, lib/app_scope.dart, lib/main.dart. This section covers 29 nodes and 31 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: CLI &amp; Skill Installers (44 nodes, 47 edges)
+    %% Section: CLI &amp; Skill Installers (29 nodes, 31 edges)
     subgraph cli_skills_External_generated_0c226fa1["External / generated"]
-        ui_screens_settings_screen_dart_0d5962d8("ui/screens/settings screen.dart")
-        ui_screens_splash_screen_dart_5fec02b2("ui/screens/splash screen.dart")
-        ui_screens_topic_detail_screen_dart_3cc83721("ui/screens/topic detail screen.dart")
-        controllers_app_controller_dart_3471f29e("../../controllers/app controller.dart")
-        ui_screens_error_screen_dart_82183dc9("ui/screens/error_screen.dart")
-        ui_screens_home_screen_dart_c3a777f0("ui/screens/home_screen.dart")
-        ui_screens_learning_screen_dart_50abeba4("ui/screens/learning screen.dart")
-        ui_screens_progress_screen_dart_f5bacb10("ui/screens/progress screen.dart")
-        ui_screens_review_screen_dart_4d3e150b("ui/screens/review screen.dart")
         package_flutter_widgets_dart_ee5a6713("package:flutter/widgets.dart")
+        controllers_app_controller_dart_3471f29e("../../controllers/app controller.dart")
         data_content_content_repository_dart_e43b7fc7("data/content/content repository.dart")
         data_progress_progress_store_dart_d7431781("data/progress/progress store.dart")
         progress_controller_dart_7ae92060("progress_controller.dart")
         changenotifier_37914a3b("ChangeNotifier")
+        inheritedwidget_bd884b28("InheritedWidget")
     end
-    lib_app_bba65f97("app.dart")
-    lib_app_scope_4c3d9bef("app_scope.dart")
-    lib_controllers_app_controller_bdbb1123("app_controller.dart")
+    subgraph cli_skills_lib_app_scope_dart_df5e8713["lib/app_scope.dart"]
+        lib_app_scope_4c3d9bef("app_scope.dart")
+        lib_app_scope_appscope_94a94082("AppScope<br/><small>lib/app_scope.dart</small>")
+        lib_app_scope_app_1a976e55("app<br/><small>lib/app_scope.dart</small>")
+        lib_app_scope_of_0a07ba95("of<br/><small>lib/app_scope.dart</small>")
+        lib_app_scope_read_1251ce34("read<br/><small>lib/app_scope.dart</small>")
+        lib_app_scope_updateshouldnotify_a6227384("updateShouldNotify<br/><small>lib/app_scope.dart</small>")
+    end
+    subgraph cli_skills_lib_controllers_app_controller_dart_04a73cfb["lib/controllers/app_controller.dart"]
+        lib_controllers_app_controller_bdbb1123("app_controller.dart")
+        lib_controllers_app_controller_appcontroller_f52c923b("AppController<br/><small>lib/controllers/app_controller.dart</small>")
+        lib_controllers_app_controller_appstatus_4bb3e95d("AppStatus<br/><small>lib/controllers/app_controller.dart</small>")
+    end
+    lib_data_content_content_repository_loadedconten_11bf4a98("LoadedContent<br/><small>data/content/content_repository.dart</small>")
     lib_main_6217d969("main.dart")
-    lib_app_bba65f97 -->|imports| ui_screens_settings_screen_dart_0d5962d8
-    lib_app_bba65f97 -->|imports| ui_screens_splash_screen_dart_5fec02b2
-    lib_app_bba65f97 -->|imports| ui_screens_topic_detail_screen_dart_3cc83721
-    lib_app_bba65f97 -->|imports| controllers_app_controller_dart_3471f29e
-    lib_app_bba65f97 -->|imports| ui_screens_error_screen_dart_82183dc9
-    lib_app_bba65f97 -->|imports| ui_screens_home_screen_dart_c3a777f0
-    lib_app_bba65f97 -->|imports| ui_screens_learning_screen_dart_50abeba4
-    lib_app_bba65f97 -->|imports| ui_screens_progress_screen_dart_f5bacb10
-    lib_app_bba65f97 -->|imports| ui_screens_review_screen_dart_4d3e150b
     lib_app_scope_4c3d9bef -->|imports| package_flutter_widgets_dart_ee5a6713
     lib_app_scope_4c3d9bef -->|imports| controllers_app_controller_dart_3471f29e
     lib_controllers_app_controller_bdbb1123 -->|imports| data_content_content_repository_dart_e43b7fc7
@@ -897,24 +897,24 @@ flowchart LR
     lib_main_6217d969 -->|imports| controllers_app_controller_dart_3471f29e
     lib_main_6217d969 -->|imports| data_content_content_repository_dart_e43b7fc7
     lib_main_6217d969 -->|imports| data_progress_progress_store_dart_d7431781
-    %% Omitted for readability: 26 nodes, 0 edges
-    class ui_screens_settings_screen_dart_0d5962d8 function;
-    class ui_screens_splash_screen_dart_5fec02b2 function;
-    class ui_screens_topic_detail_screen_dart_3cc83721 function;
-    class controllers_app_controller_dart_3471f29e function;
-    class ui_screens_error_screen_dart_82183dc9 function;
-    class ui_screens_home_screen_dart_c3a777f0 function;
-    class ui_screens_learning_screen_dart_50abeba4 function;
-    class ui_screens_progress_screen_dart_f5bacb10 function;
-    class ui_screens_review_screen_dart_4d3e150b function;
+    %% Omitted for readability: 11 nodes, 0 edges
     class package_flutter_widgets_dart_ee5a6713 function;
+    class controllers_app_controller_dart_3471f29e function;
     class data_content_content_repository_dart_e43b7fc7 function;
     class data_progress_progress_store_dart_d7431781 ui;
     class progress_controller_dart_7ae92060 function;
     class changenotifier_37914a3b klass;
-    class lib_app_bba65f97 function;
+    class inheritedwidget_bd884b28 klass;
     class lib_app_scope_4c3d9bef function;
+    class lib_app_scope_appscope_94a94082 klass;
+    class lib_app_scope_app_1a976e55 function;
+    class lib_app_scope_of_0a07ba95 function;
+    class lib_app_scope_read_1251ce34 function;
+    class lib_app_scope_updateshouldnotify_a6227384 function;
     class lib_controllers_app_controller_bdbb1123 function;
+    class lib_controllers_app_controller_appcontroller_f52c923b klass;
+    class lib_controllers_app_controller_appstatus_4bb3e95d klass;
+    class lib_data_content_content_repository_loadedconten_11bf4a98 klass;
     class lib_main_6217d969 function;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
@@ -979,62 +979,6 @@ flowchart LR
 </tr>
 <tr>
   <td>6</td>
-  <td><code>app.dart</code><br><small style="color:var(--muted)">lib/app.dart</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>../../app_scope.dart</code><br><code>../../controllers/app controller.dart</code><br><code>package:flutter/material.dart</code><br>+8 more</td>
-  <td>app.dart node in lib/app.dart.</td>
-</tr>
-<tr>
-  <td>7</td>
-  <td><code>appTitle</code><br><small style="color:var(--muted)">lib/app.dart</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>appTitle node in lib/app.dart.</td>
-</tr>
-<tr>
-  <td>8</td>
-  <td><code>build</code><br><small style="color:var(--muted)">lib/app.dart</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>build node in lib/app.dart.</td>
-</tr>
-<tr>
-  <td>9</td>
-  <td><code>buildTheme</code><br><small style="color:var(--muted)">lib/app.dart</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>buildTheme node in lib/app.dart.</td>
-</tr>
-<tr>
-  <td>10</td>
-  <td><code>controller</code><br><small style="color:var(--muted)">lib/app.dart</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>controller node in lib/app.dart.</td>
-</tr>
-<tr>
-  <td>11</td>
-  <td><code>KanjiApp</code><br><small style="color:var(--muted)">lib/app.dart</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>KanjiApp node in lib/app.dart.</td>
-</tr>
-<tr>
-  <td>12</td>
-  <td><code>scheme</code><br><small style="color:var(--muted)">lib/app.dart</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>scheme node in lib/app.dart.</td>
-</tr>
-<tr>
-  <td>13</td>
   <td><code>app_scope.dart</code><br><small style="color:var(--muted)">lib/app_scope.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1042,7 +986,7 @@ flowchart LR
   <td>app_scope.dart node in lib/app_scope.dart.</td>
 </tr>
 <tr>
-  <td>14</td>
+  <td>7</td>
   <td><code>app</code><br><small style="color:var(--muted)">lib/app_scope.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1050,7 +994,7 @@ flowchart LR
   <td>app node in lib/app_scope.dart.</td>
 </tr>
 <tr>
-  <td>15</td>
+  <td>8</td>
   <td><code>AppScope</code><br><small style="color:var(--muted)">lib/app_scope.dart</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -1058,7 +1002,7 @@ flowchart LR
   <td>AppScope node in lib/app_scope.dart.</td>
 </tr>
 <tr>
-  <td>16</td>
+  <td>9</td>
   <td><code>of</code><br><small style="color:var(--muted)">lib/app_scope.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1066,7 +1010,7 @@ flowchart LR
   <td>of node in lib/app_scope.dart.</td>
 </tr>
 <tr>
-  <td>17</td>
+  <td>10</td>
   <td><code>read</code><br><small style="color:var(--muted)">lib/app_scope.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1074,7 +1018,7 @@ flowchart LR
   <td>read node in lib/app_scope.dart.</td>
 </tr>
 <tr>
-  <td>18</td>
+  <td>11</td>
   <td><code>updateShouldNotify</code><br><small style="color:var(--muted)">lib/app_scope.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1082,15 +1026,15 @@ flowchart LR
   <td>updateShouldNotify node in lib/app_scope.dart.</td>
 </tr>
 <tr>
-  <td>19</td>
+  <td>12</td>
   <td><code>app_controller.dart</code><br><small style="color:var(--muted)">lib/controllers/app_controller.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
-  <td><code>data/content/content repository.dart</code><br><code>data/progress/progress store.dart</code><br><code>package:flutter/foundation.dart</code><br>+1 more</td>
+  <td><code>../../domain/models/topic.dart</code><br><code>data/content/content repository.dart</code><br><code>data/progress/progress store.dart</code><br>+2 more</td>
   <td>app_controller.dart node in lib/controllers/app_controller.dart.</td>
 </tr>
 <tr>
-  <td>20</td>
+  <td>13</td>
   <td><code>AppController</code><br><small style="color:var(--muted)">lib/controllers/app_controller.dart</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -1098,7 +1042,7 @@ flowchart LR
   <td>AppController node in lib/controllers/app_controller.dart.</td>
 </tr>
 <tr>
-  <td>21</td>
+  <td>14</td>
   <td><code>AppStatus</code><br><small style="color:var(--muted)">lib/controllers/app_controller.dart</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -1106,7 +1050,7 @@ flowchart LR
   <td>AppStatus node in lib/controllers/app_controller.dart.</td>
 </tr>
 <tr>
-  <td>22</td>
+  <td>15</td>
   <td><code>content</code><br><small style="color:var(--muted)">lib/controllers/app_controller.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1114,7 +1058,7 @@ flowchart LR
   <td>content node in lib/controllers/app_controller.dart.</td>
 </tr>
 <tr>
-  <td>23</td>
+  <td>16</td>
   <td><code>_contentRepository</code><br><small style="color:var(--muted)">lib/controllers/app_controller.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1122,7 +1066,7 @@ flowchart LR
   <td>_contentRepository node in lib/controllers/app_controller.dart.</td>
 </tr>
 <tr>
-  <td>24</td>
+  <td>17</td>
   <td><code>errorMessage</code><br><small style="color:var(--muted)">lib/controllers/app_controller.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1130,7 +1074,7 @@ flowchart LR
   <td>errorMessage node in lib/controllers/app_controller.dart.</td>
 </tr>
 <tr>
-  <td>25</td>
+  <td>18</td>
   <td><code>isReady</code><br><small style="color:var(--muted)">lib/controllers/app_controller.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1138,7 +1082,7 @@ flowchart LR
   <td>isReady node in lib/controllers/app_controller.dart.</td>
 </tr>
 <tr>
-  <td>26</td>
+  <td>19</td>
   <td><code>load</code><br><small style="color:var(--muted)">lib/controllers/app_controller.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1146,7 +1090,7 @@ flowchart LR
   <td>load node in lib/controllers/app_controller.dart.</td>
 </tr>
 <tr>
-  <td>27</td>
+  <td>20</td>
   <td><code>progress</code><br><small style="color:var(--muted)">lib/controllers/app_controller.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1154,7 +1098,7 @@ flowchart LR
   <td>progress node in lib/controllers/app_controller.dart.</td>
 </tr>
 <tr>
-  <td>28</td>
+  <td>21</td>
   <td><code>status</code><br><small style="color:var(--muted)">lib/controllers/app_controller.dart</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1162,7 +1106,7 @@ flowchart LR
   <td>status node in lib/controllers/app_controller.dart.</td>
 </tr>
 <tr>
-  <td>29</td>
+  <td>22</td>
   <td><code>ProgressController</code><br><small style="color:var(--muted)">lib/controllers/progress_controller.dart</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -1170,12 +1114,60 @@ flowchart LR
   <td>ProgressController node in lib/controllers/progress_controller.dart.</td>
 </tr>
 <tr>
-  <td>30</td>
+  <td>23</td>
   <td><code>LoadedContent</code><br><small style="color:var(--muted)">data/content/content_repository.dart</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
   <td>LoadedContent node in data/content/content_repository.dart.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>main.dart</code><br><small style="color:var(--muted)">lib/main.dart</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>../../app.dart</code><br><code>../../controllers/app controller.dart</code><br><code>data/content/content repository.dart</code><br>+2 more</td>
+  <td>main.dart node in lib/main.dart.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>controller</code><br><small style="color:var(--muted)">lib/main.dart</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>controller node in lib/main.dart.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>load</code><br><small style="color:var(--muted)">lib/main.dart</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>load node in lib/main.dart.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>main</code><br><small style="color:var(--muted)">lib/main.dart</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>main node in lib/main.dart.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>package:flutter/widgets.dart</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>app_scope.dart</code><br><small style="color:var(--muted)">lib/app_scope.dart</small></td>
+  <td>No direct outbound edge</td>
+  <td>package:flutter/widgets.dart node in project.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>progress_controller.dart</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>app_controller.dart</code><br><small style="color:var(--muted)">lib/controllers/app_controller.dart</small></td>
+  <td>No direct outbound edge</td>
+  <td>progress_controller.dart node in project.</td>
 </tr>
 </table>
 
@@ -1185,7 +1177,6 @@ flowchart LR
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
       <tr><td><code>lib/controllers/app_controller.dart</code></td><td>10 nodes</td></tr>
-<tr><td><code>lib/app.dart</code></td><td>7 nodes</td></tr>
 <tr><td><code>lib/app_scope.dart</code></td><td>6 nodes</td></tr>
 <tr><td><code>lib/main.dart</code></td><td>4 nodes</td></tr>
 <tr><td><code>lib/controllers/progress_controller.dart</code></td><td>1 nodes</td></tr>
@@ -1194,19 +1185,28 @@ flowchart LR
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: defines x23, imports x17, references x4, inherits x3. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: defines x17, imports x8, references x3, inherits x3. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
 
 <!-- ====== 5. Tests & Fixtures ====== -->
 <h2 id="tests-fixtures">5. Tests &amp; Fixtures</h2>
-<p>Tests &amp; Fixtures groups implementation around testdart, test, progress, app, mostly in test/helpers.dart, test/controllers/progress_controller_test.dart, test/core/topic_parser_test.dart. This section covers 52 nodes and 68 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Tests &amp; Fixtures groups implementation around test, testdart, widgets, progress, mostly in ui/widgets/kanji_card.dart, scripts/test_coverage.sh, test/helpers.dart. This section covers 101 nodes and 134 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Tests &amp; Fixtures (52 nodes, 68 edges)
+    %% Section: Tests &amp; Fixtures (101 nodes, 134 edges)
+    subgraph tests_fixtures_scripts_test_coverage_sh_ed1143be["scripts/test_coverage.sh"]
+        scripts_test_coverage_sh_entry_dc5a159e("test_coverage.sh script<br/><small>scripts/test_coverage.sh</small>")
+        scripts_test_coverage_ensure_genhtml_61fed568("ensure_genhtml()<br/><small>scripts/test_coverage.sh</small>")
+        scripts_test_coverage_install_lcov_4cddb321("install_lcov()<br/><small>scripts/test_coverage.sh</small>")
+        scripts_test_coverage_die_a410bbb5("die()<br/><small>scripts/test_coverage.sh</small>")
+        scripts_test_coverage_info_4476aa06("info()<br/><small>scripts/test_coverage.sh</small>")
+        scripts_test_coverage_usage_46905998("usage()<br/><small>scripts/test_coverage.sh</small>")
+        scripts_test_coverage_warn_10d0bae9("warn()<br/><small>scripts/test_coverage.sh</small>")
+    end
     subgraph tests_fixtures_External_generated_473753cb["External / generated"]
         package_flutter_test_flutter_test_dart_878563e1("package:flutter test/flutter test.dart")
         package_kanji_app_controllers_progress_controlle_007eacbf("package:kanji app/controllers/progress...")
@@ -1214,62 +1214,53 @@ flowchart LR
         package_kanji_app_domain_models_kanji_state_dart_899bf74c("package:kanji app/domain/models/kanji s...")
         package_kanji_app_domain_models_topic_dart_e0b58b26("package:kanji app/domain/models/topic.dart")
         package_kanji_app_domain_progress_progress_engin_bb3e6299("package:kanji app/domain/progress/progr...")
-        package_shared_preferences_shared_preferences_da_d8269709("package:shared preferences/shared prefe...")
-        package_kanji_app_core_kana_util_dart_6775a4ad("package:kanji app/core/kana util.dart")
-        package_kanji_app_data_content_content_repositor_4015ece7("package:kanji app/data/content/content...")
-        package_kanji_app_app_dart_f35dfe8f("package:kanji_app/app.dart")
     end
     test_controllers_progress_controller_test_b4ce4d43("progress controller test.dart<br/><small>test/controllers/progress_controller_test.dart</small>")
-    test_core_kana_util_test_44a19298("kana_util_test.dart")
     test_core_topic_parser_test_b2538567("topic_parser_test.dart")
-    test_data_content_repository_test_f33ea428("content_repository_test.dart")
-    test_data_progress_store_test_1891bb69("progress_store_test.dart")
-    test_domain_progress_engine_test_5ed3633f("progress_engine_test.dart")
     test_helpers_1cd1a7f3("helpers.dart")
     test_widgets_app_flow_test_30aa0b2e("app_flow_test.dart")
+    test_widgets_topic_card_test_c7a3446b("topic_card_test.dart")
+    scripts_test_coverage_ensure_genhtml_61fed568 -->|calls| scripts_test_coverage_install_lcov_4cddb321
+    scripts_test_coverage_ensure_genhtml_61fed568 -->|calls| scripts_test_coverage_die_a410bbb5
+    scripts_test_coverage_install_lcov_4cddb321 -->|calls| scripts_test_coverage_info_4476aa06
+    scripts_test_coverage_install_lcov_4cddb321 -->|calls| scripts_test_coverage_die_a410bbb5
+    scripts_test_coverage_sh_entry_dc5a159e -->|calls| scripts_test_coverage_ensure_genhtml_61fed568
+    scripts_test_coverage_sh_entry_dc5a159e -->|calls| scripts_test_coverage_usage_46905998
+    scripts_test_coverage_sh_entry_dc5a159e -->|calls| scripts_test_coverage_warn_10d0bae9
+    scripts_test_coverage_sh_entry_dc5a159e -->|calls| scripts_test_coverage_die_a410bbb5
+    scripts_test_coverage_sh_entry_dc5a159e -->|calls| scripts_test_coverage_info_4476aa06
     test_controllers_progress_controller_test_b4ce4d43 -->|imports| package_flutter_test_flutter_test_dart_878563e1
     test_controllers_progress_controller_test_b4ce4d43 -->|imports| package_kanji_app_controllers_progress_controlle_007eacbf
     test_controllers_progress_controller_test_b4ce4d43 -->|imports| package_kanji_app_data_progress_progress_store_d_70bf5bd5
     test_controllers_progress_controller_test_b4ce4d43 -->|imports| package_kanji_app_domain_models_kanji_state_dart_899bf74c
     test_controllers_progress_controller_test_b4ce4d43 -->|imports| package_kanji_app_domain_models_topic_dart_e0b58b26
     test_controllers_progress_controller_test_b4ce4d43 -->|imports| package_kanji_app_domain_progress_progress_engin_bb3e6299
-    test_controllers_progress_controller_test_b4ce4d43 -->|imports| package_shared_preferences_shared_preferences_da_d8269709
-    test_core_kana_util_test_44a19298 -->|imports| package_flutter_test_flutter_test_dart_878563e1
-    test_core_kana_util_test_44a19298 -->|imports| package_kanji_app_core_kana_util_dart_6775a4ad
-    test_data_content_repository_test_f33ea428 -->|imports| package_flutter_test_flutter_test_dart_878563e1
-    test_data_content_repository_test_f33ea428 -->|imports| package_kanji_app_core_kana_util_dart_6775a4ad
-    test_data_content_repository_test_f33ea428 -->|imports| package_kanji_app_data_content_content_repositor_4015ece7
-    test_data_progress_store_test_1891bb69 -->|imports| package_flutter_test_flutter_test_dart_878563e1
-    test_data_progress_store_test_1891bb69 -->|imports| package_kanji_app_data_progress_progress_store_d_70bf5bd5
-    test_data_progress_store_test_1891bb69 -->|imports| package_shared_preferences_shared_preferences_da_d8269709
-    test_domain_progress_engine_test_5ed3633f -->|imports| package_flutter_test_flutter_test_dart_878563e1
-    test_domain_progress_engine_test_5ed3633f -->|imports| package_kanji_app_domain_progress_progress_engin_bb3e6299
-    test_domain_progress_engine_test_5ed3633f -->|imports| package_kanji_app_domain_models_kanji_state_dart_899bf74c
+    test_core_topic_parser_test_b2538567 -->|imports| package_flutter_test_flutter_test_dart_878563e1
     test_helpers_1cd1a7f3 -->|imports| package_flutter_test_flutter_test_dart_878563e1
-    test_helpers_1cd1a7f3 -->|imports| package_kanji_app_app_dart_f35dfe8f
-    test_helpers_1cd1a7f3 -->|imports| package_kanji_app_data_content_content_repositor_4015ece7
     test_helpers_1cd1a7f3 -->|imports| package_kanji_app_data_progress_progress_store_d_70bf5bd5
-    test_helpers_1cd1a7f3 -->|imports| package_shared_preferences_shared_preferences_da_d8269709
     test_widgets_app_flow_test_30aa0b2e -->|imports| package_flutter_test_flutter_test_dart_878563e1
-    %% Omitted for readability: 34 nodes, 4 edges
+    test_widgets_app_flow_test_30aa0b2e -->|imports| package_kanji_app_domain_progress_progress_engin_bb3e6299
+    test_widgets_topic_card_test_c7a3446b -->|imports| package_flutter_test_flutter_test_dart_878563e1
+    test_widgets_topic_card_test_c7a3446b -->|imports| package_kanji_app_domain_progress_progress_engin_bb3e6299
+    %% Omitted for readability: 83 nodes, 0 edges
+    class scripts_test_coverage_sh_entry_dc5a159e test;
+    class scripts_test_coverage_ensure_genhtml_61fed568 test;
+    class scripts_test_coverage_install_lcov_4cddb321 test;
+    class scripts_test_coverage_die_a410bbb5 test;
+    class scripts_test_coverage_info_4476aa06 test;
+    class scripts_test_coverage_usage_46905998 test;
+    class scripts_test_coverage_warn_10d0bae9 test;
     class package_flutter_test_flutter_test_dart_878563e1 function;
     class package_kanji_app_controllers_progress_controlle_007eacbf function;
     class package_kanji_app_data_progress_progress_store_d_70bf5bd5 ui;
     class package_kanji_app_domain_models_kanji_state_dart_899bf74c function;
     class package_kanji_app_domain_models_topic_dart_e0b58b26 function;
     class package_kanji_app_domain_progress_progress_engin_bb3e6299 function;
-    class package_shared_preferences_shared_preferences_da_d8269709 function;
-    class package_kanji_app_core_kana_util_dart_6775a4ad function;
-    class package_kanji_app_data_content_content_repositor_4015ece7 function;
-    class package_kanji_app_app_dart_f35dfe8f function;
     class test_controllers_progress_controller_test_b4ce4d43 test;
-    class test_core_kana_util_test_44a19298 test;
     class test_core_topic_parser_test_b2538567 test;
-    class test_data_content_repository_test_f33ea428 test;
-    class test_data_progress_store_test_1891bb69 test;
-    class test_domain_progress_engine_test_5ed3633f test;
     class test_helpers_1cd1a7f3 test;
     class test_widgets_app_flow_test_30aa0b2e test;
+    class test_widgets_topic_card_test_c7a3446b test;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -1295,7 +1286,7 @@ flowchart LR
   <td>1</td>
   <td><code>../helpers.dart</code><br><small style="color:var(--muted)"></small></td>
   <td><span class="tag tag-func">Function</span></td>
-  <td><code>app_flow_test.dart</code><br><small style="color:var(--muted)">test/widgets/app_flow_test.dart</small><br><code>home_screen_test.dart</code><br><small style="color:var(--muted)">test/widgets/home_screen_test.dart</small><br><code>review_screen_test.dart</code><br><small style="color:var(--muted)">test/widgets/review_screen_test.dart</small><br>+1 more</td>
+  <td><code>app_flow_test.dart</code><br><small style="color:var(--muted)">test/widgets/app_flow_test.dart</small><br><code>home_continue_test.dart</code><br><small style="color:var(--muted)">test/widgets/home_continue_test.dart</small><br><code>home_screen_test.dart</code><br><small style="color:var(--muted)">test/widgets/home_screen_test.dart</small><br>+3 more</td>
   <td>No direct outbound edge</td>
   <td>../helpers.dart node in project.</td>
 </tr>
@@ -1309,17 +1300,17 @@ flowchart LR
 </tr>
 <tr>
   <td>3</td>
-  <td><code>package:flutter/material.dart</code><br><small style="color:var(--muted)"></small></td>
+  <td><code>package:flutter/rendering.dart</code><br><small style="color:var(--muted)"></small></td>
   <td><span class="tag tag-func">Function</span></td>
-  <td><code>app.dart</code><br><small style="color:var(--muted)">lib/app.dart</small><br><code>app_flow_test.dart</code><br><small style="color:var(--muted)">test/widgets/app_flow_test.dart</small><br><code>error_screen.dart</code><br><small style="color:var(--muted)">ui/screens/error_screen.dart</small><br>+12 more</td>
+  <td><code>topic_card_test.dart</code><br><small style="color:var(--muted)">test/widgets/topic_card_test.dart</small></td>
   <td>No direct outbound edge</td>
-  <td>package:flutter/material.dart node in project.</td>
+  <td>package:flutter/rendering.dart node in project.</td>
 </tr>
 <tr>
   <td>4</td>
   <td><code>package:flutter_test/flutter_test.dart</code><br><small style="color:var(--muted)"></small></td>
   <td><span class="tag tag-func">Function</span></td>
-  <td><code>app_flow_test.dart</code><br><small style="color:var(--muted)">test/widgets/app_flow_test.dart</small><br><code>content_repository_test.dart</code><br><small style="color:var(--muted)">test/data/content_repository_test.dart</small><br><code>helpers.dart</code><br><small style="color:var(--muted)">test/helpers.dart</small><br>+10 more</td>
+  <td><code>app_flow_test.dart</code><br><small style="color:var(--muted)">test/widgets/app_flow_test.dart</small><br><code>content_repository_test.dart</code><br><small style="color:var(--muted)">test/data/content_repository_test.dart</small><br><code>helpers.dart</code><br><small style="color:var(--muted)">test/helpers.dart</small><br>+12 more</td>
   <td>No direct outbound edge</td>
   <td>Verifies imports, entry points, or version behavior.</td>
 </tr>
@@ -1349,6 +1340,22 @@ flowchart LR
 </tr>
 <tr>
   <td>8</td>
+  <td><code>package:kanji_app/core/json/kanji_parser.dart</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>kanji_parser_test.dart</code><br><small style="color:var(--muted)">test/core/kanji_parser_test.dart</small><br><code>topic_parser_test.dart</code><br><small style="color:var(--muted)">test/core/topic_parser_test.dart</small></td>
+  <td>No direct outbound edge</td>
+  <td>package:kanji_app/core/json/kanji_parser.dart node in project.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>package:kanji_app/core/json/topic_parser.dart</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>topic_parser_test.dart</code><br><small style="color:var(--muted)">test/core/topic_parser_test.dart</small></td>
+  <td>No direct outbound edge</td>
+  <td>package:kanji_app/core/json/topic_parser.dart node in project.</td>
+</tr>
+<tr>
+  <td>10</td>
   <td><code>package:kanji_app/core/kana_util.dart</code><br><small style="color:var(--muted)"></small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>content_repository_test.dart</code><br><small style="color:var(--muted)">test/data/content_repository_test.dart</small><br><code>kana_util_test.dart</code><br><small style="color:var(--muted)">test/core/kana_util_test.dart</small></td>
@@ -1356,7 +1363,7 @@ flowchart LR
   <td>package:kanji_app/core/kana_util.dart node in project.</td>
 </tr>
 <tr>
-  <td>9</td>
+  <td>11</td>
   <td><code>package:kanji_app/data/content/content_repository.dart</code><br><small style="color:var(--muted)"></small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>content_repository_test.dart</code><br><small style="color:var(--muted)">test/data/content_repository_test.dart</small><br><code>helpers.dart</code><br><small style="color:var(--muted)">test/helpers.dart</small></td>
@@ -1364,7 +1371,7 @@ flowchart LR
   <td>package:kanji_app/data/content/content_repository.dart node in project.</td>
 </tr>
 <tr>
-  <td>10</td>
+  <td>12</td>
   <td><code>package:kanji_app/data/progress/progress_store.dart</code><br><small style="color:var(--muted)"></small></td>
   <td><span class="tag tag-hook">UI</span></td>
   <td><code>helpers.dart</code><br><small style="color:var(--muted)">test/helpers.dart</small><br><code>progress controller test.dart</code><br><small style="color:var(--muted)">test/controllers/progress_controller_test.dart</small><br><code>progress_store_test.dart</code><br><small style="color:var(--muted)">test/data/progress_store_test.dart</small></td>
@@ -1372,7 +1379,7 @@ flowchart LR
   <td>package:kanji_app/data/progress/progress_store.dart node in project.</td>
 </tr>
 <tr>
-  <td>11</td>
+  <td>13</td>
   <td><code>package:kanji_app/domain/models/kanji_state.dart</code><br><small style="color:var(--muted)"></small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>progress controller test.dart</code><br><small style="color:var(--muted)">test/controllers/progress_controller_test.dart</small><br><code>progress_engine_test.dart</code><br><small style="color:var(--muted)">test/domain/progress_engine_test.dart</small></td>
@@ -1380,7 +1387,7 @@ flowchart LR
   <td>package:kanji_app/domain/models/kanji_state.dart node in project.</td>
 </tr>
 <tr>
-  <td>12</td>
+  <td>14</td>
   <td><code>package:kanji_app/domain/models/topic.dart</code><br><small style="color:var(--muted)"></small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>progress controller test.dart</code><br><small style="color:var(--muted)">test/controllers/progress_controller_test.dart</small></td>
@@ -1388,15 +1395,15 @@ flowchart LR
   <td>package:kanji_app/domain/models/topic.dart node in project.</td>
 </tr>
 <tr>
-  <td>13</td>
+  <td>15</td>
   <td><code>package:kanji_app/domain/progress/progress_engine.dart</code><br><small style="color:var(--muted)"></small></td>
   <td><span class="tag tag-func">Function</span></td>
-  <td><code>app_flow_test.dart</code><br><small style="color:var(--muted)">test/widgets/app_flow_test.dart</small><br><code>progress controller test.dart</code><br><small style="color:var(--muted)">test/controllers/progress_controller_test.dart</small><br><code>progress_engine_test.dart</code><br><small style="color:var(--muted)">test/domain/progress_engine_test.dart</small><br>+1 more</td>
+  <td><code>app_flow_test.dart</code><br><small style="color:var(--muted)">test/widgets/app_flow_test.dart</small><br><code>home_continue_test.dart</code><br><small style="color:var(--muted)">test/widgets/home_continue_test.dart</small><br><code>progress controller test.dart</code><br><small style="color:var(--muted)">test/controllers/progress_controller_test.dart</small><br>+3 more</td>
   <td>No direct outbound edge</td>
   <td>package:kanji_app/domain/progress/progress_engine.dart node in project.</td>
 </tr>
 <tr>
-  <td>14</td>
+  <td>16</td>
   <td><code>package:shared_preferences/shared_preferences.dart</code><br><small style="color:var(--muted)"></small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>app_flow_test.dart</code><br><small style="color:var(--muted)">test/widgets/app_flow_test.dart</small><br><code>helpers.dart</code><br><small style="color:var(--muted)">test/helpers.dart</small><br><code>progress controller test.dart</code><br><small style="color:var(--muted)">test/controllers/progress_controller_test.dart</small><br>+2 more</td>
@@ -1404,7 +1411,7 @@ flowchart LR
   <td>package:shared_preferences/shared_preferences.dart node in project.</td>
 </tr>
 <tr>
-  <td>15</td>
+  <td>17</td>
   <td><code>return</code><br><small style="color:var(--muted)"></small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1412,7 +1419,7 @@ flowchart LR
   <td>return node in project.</td>
 </tr>
 <tr>
-  <td>16</td>
+  <td>18</td>
   <td><code>progress_controller_test.dart</code><br><small style="color:var(--muted)">test/controllers/progress_controller_test.dart</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
@@ -1420,7 +1427,7 @@ flowchart LR
   <td>Verifies imports, entry points, or version behavior.</td>
 </tr>
 <tr>
-  <td>17</td>
+  <td>19</td>
   <td><code>controller</code><br><small style="color:var(--muted)">test/controllers/progress_controller_test.dart</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
@@ -1428,7 +1435,7 @@ flowchart LR
   <td>controller node in test/controllers/progress_controller_test.dart.</td>
 </tr>
 <tr>
-  <td>18</td>
+  <td>20</td>
   <td><code>main</code><br><small style="color:var(--muted)">test/controllers/progress_controller_test.dart</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
@@ -1436,7 +1443,7 @@ flowchart LR
   <td>main node in test/controllers/progress_controller_test.dart.</td>
 </tr>
 <tr>
-  <td>19</td>
+  <td>21</td>
   <td><code>_topic</code><br><small style="color:var(--muted)">test/controllers/progress_controller_test.dart</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
@@ -1444,7 +1451,7 @@ flowchart LR
   <td>_topic node in test/controllers/progress_controller_test.dart.</td>
 </tr>
 <tr>
-  <td>20</td>
+  <td>22</td>
   <td><code>kana_util_test.dart</code><br><small style="color:var(--muted)">test/core/kana_util_test.dart</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
@@ -1452,7 +1459,7 @@ flowchart LR
   <td>Verifies imports, entry points, or version behavior.</td>
 </tr>
 <tr>
-  <td>21</td>
+  <td>23</td>
   <td><code>main</code><br><small style="color:var(--muted)">test/core/kana_util_test.dart</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
@@ -1460,76 +1467,60 @@ flowchart LR
   <td>main node in test/core/kana_util_test.dart.</td>
 </tr>
 <tr>
-  <td>22</td>
-  <td><code>content_repository_test.dart</code><br><small style="color:var(--muted)">test/data/content_repository_test.dart</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>package:flutter test/flutter test.dart</code><br><code>package:kanji app/core/kana util.dart</code><br><code>package:kanji app/data/content/content...</code></td>
-  <td>Verifies imports, entry points, or version behavior.</td>
-</tr>
-<tr>
-  <td>23</td>
-  <td><code>main</code><br><small style="color:var(--muted)">test/data/content_repository_test.dart</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>main node in test/data/content_repository_test.dart.</td>
-</tr>
-<tr>
   <td>24</td>
-  <td><code>repository</code><br><small style="color:var(--muted)">test/data/content_repository_test.dart</small></td>
+  <td><code>kanji_parser_test.dart</code><br><small style="color:var(--muted)">test/core/kanji_parser_test.dart</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>repository node in test/data/content_repository_test.dart.</td>
+  <td><code>package:flutter test/flutter test.dart</code><br><code>package:kanji app/core/json/kanji parse...</code></td>
+  <td>Verifies imports, entry points, or version behavior.</td>
 </tr>
 <tr>
   <td>25</td>
-  <td><code>progress_store_test.dart</code><br><small style="color:var(--muted)">test/data/progress_store_test.dart</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>package:flutter test/flutter test.dart</code><br><code>package:kanji app/data/progress/progres...</code><br><code>package:shared preferences/shared prefe...</code></td>
-  <td>Verifies imports, entry points, or version behavior.</td>
-</tr>
-<tr>
-  <td>26</td>
-  <td><code>main</code><br><small style="color:var(--muted)">test/data/progress_store_test.dart</small></td>
+  <td><code>main</code><br><small style="color:var(--muted)">test/core/kanji_parser_test.dart</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>main node in test/data/progress_store_test.dart.</td>
+  <td>main node in test/core/kanji_parser_test.dart.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>validRecord</code><br><small style="color:var(--muted)">test/core/kanji_parser_test.dart</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>validRecord node in test/core/kanji_parser_test.dart.</td>
 </tr>
 <tr>
   <td>27</td>
-  <td><code>progress_engine_test.dart</code><br><small style="color:var(--muted)">test/domain/progress_engine_test.dart</small></td>
+  <td><code>topic_parser_test.dart</code><br><small style="color:var(--muted)">test/core/topic_parser_test.dart</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
-  <td><code>package:flutter test/flutter test.dart</code><br><code>package:kanji app/domain/models/kanji s...</code><br><code>package:kanji app/domain/progress/progr...</code></td>
+  <td><code>package:flutter test/flutter test.dart</code><br><code>package:kanji app/core/json/kanji parse...</code><br><code>package:kanji app/core/json/topic parse...</code></td>
   <td>Verifies imports, entry points, or version behavior.</td>
 </tr>
 <tr>
   <td>28</td>
-  <td><code>main</code><br><small style="color:var(--muted)">test/domain/progress_engine_test.dart</small></td>
+  <td><code>kanjiJson</code><br><small style="color:var(--muted)">test/core/topic_parser_test.dart</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>main node in test/domain/progress_engine_test.dart.</td>
+  <td>kanjiJson node in test/core/topic_parser_test.dart.</td>
 </tr>
 <tr>
   <td>29</td>
-  <td><code>helpers.dart</code><br><small style="color:var(--muted)">test/helpers.dart</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>package:flutter test/flutter test.dart</code><br><code>package:kanji app/controllers/app contr...</code><br><code>package:kanji app/data/content/content...</code><br>+3 more</td>
-  <td>helpers.dart node in test/helpers.dart.</td>
-</tr>
-<tr>
-  <td>30</td>
-  <td><code>controller</code><br><small style="color:var(--muted)">test/helpers.dart</small></td>
+  <td><code>kanjiResult</code><br><small style="color:var(--muted)">test/core/topic_parser_test.dart</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>controller node in test/helpers.dart.</td>
+  <td>kanjiResult node in test/core/topic_parser_test.dart.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>main</code><br><small style="color:var(--muted)">test/core/topic_parser_test.dart</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>main node in test/core/topic_parser_test.dart.</td>
 </tr>
 </table>
 
@@ -1538,31 +1529,31 @@ flowchart LR
     <h4>Key Files</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>test/helpers.dart</code></td><td>7 nodes</td></tr>
+      <tr><td><code>ui/widgets/kanji_card.dart</code></td><td>13 nodes</td></tr>
+<tr><td><code>scripts/test_coverage.sh</code></td><td>8 nodes</td></tr>
+<tr><td><code>ui/widgets/topic_card.dart</code></td><td>7 nodes</td></tr>
+<tr><td><code>test/helpers.dart</code></td><td>7 nodes</td></tr>
+<tr><td><code>ui/widgets/progress_bar.dart</code></td><td>6 nodes</td></tr>
+<tr><td><code>ui/screens/error_screen.dart</code></td><td>5 nodes</td></tr>
 <tr><td><code>test/controllers/progress_controller_test.dart</code></td><td>4 nodes</td></tr>
 <tr><td><code>test/core/topic_parser_test.dart</code></td><td>4 nodes</td></tr>
-<tr><td><code>test/core/kanji_parser_test.dart</code></td><td>3 nodes</td></tr>
-<tr><td><code>test/data/content_repository_test.dart</code></td><td>3 nodes</td></tr>
-<tr><td><code>test/core/kana_util_test.dart</code></td><td>2 nodes</td></tr>
-<tr><td><code>test/data/progress_store_test.dart</code></td><td>2 nodes</td></tr>
-<tr><td><code>test/domain/progress_engine_test.dart</code></td><td>2 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: imports x43, defines x23, references x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: defines x58, imports x56, references x10, calls x9. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
 
 <!-- ====== 6. progress_controller.dart ====== -->
 <h2 id="progress-controller-dart">6. progress_controller.dart</h2>
-<p>progress_controller.dart groups implementation around progress, controllerdart, controllers, storedart, mostly in lib/controllers/progress_controller.dart, data/progress/progress_store.dart, ui/widgets/topic_tile.dart. This section covers 33 nodes and 34 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>progress_controller.dart groups implementation around progress, controllerdart, controllers, storedart, mostly in lib/controllers/progress_controller.dart, data/progress/progress_store.dart. This section covers 26 nodes and 27 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: progress_controller.dart (33 nodes, 34 edges)
+    %% Section: progress_controller.dart (26 nodes, 27 edges)
     subgraph progress_controller_dart_data_progress_progress_e62c8ae2["data/progress/progress_store.dart"]
         lib_data_progress_progress_store_93f7ff53("progress_store.dart")
         lib_data_progress_progress_store_progressstore_ff4af9e6("ProgressStore<br/><small>data/progress/progress_store.dart</small>")
@@ -1579,21 +1570,19 @@ flowchart LR
         lib_controllers_progress_controller_persist_dcc2059e("_persist<br/><small>lib/controllers/progress_controller.dart</small>")
         lib_controllers_progress_controller_states_f603b4ed("_states<br/><small>lib/controllers/progress_controller.dart</small>")
         lib_controllers_progress_controller_store_d38a3912("_store<br/><small>lib/controllers/progress_controller.dart</small>")
+        lib_controllers_progress_controller_assess_25ea7f0b("assess<br/><small>lib/controllers/progress_controller.dart</small>")
+        lib_controllers_progress_controller_init_ce6d3486("init<br/><small>lib/controllers/progress_controller.dart</small>")
     end
     subgraph progress_controller_dart_External_generated_7daf125b["External / generated"]
         domain_models_kanji_state_dart_70d77d92("../../domain/models/kanji state.dart")
         domain_progress_progress_engine_dart_e557114c("../../domain/progress/progress engine.dart")
         dart_convert_b7330642("dart:convert")
-        progress_bar_dart_f76af429("progress_bar.dart")
     end
-    lib_ui_widgets_topic_tile_c36fb769("topic_tile.dart")
     lib_controllers_progress_controller_754f5fbf -->|imports| domain_models_kanji_state_dart_70d77d92
     lib_controllers_progress_controller_754f5fbf -->|imports| domain_progress_progress_engine_dart_e557114c
     lib_data_progress_progress_store_93f7ff53 -->|imports| dart_convert_b7330642
     lib_data_progress_progress_store_93f7ff53 -->|imports| domain_models_kanji_state_dart_70d77d92
-    lib_ui_widgets_topic_tile_c36fb769 -->|imports| domain_models_kanji_state_dart_70d77d92
-    lib_ui_widgets_topic_tile_c36fb769 -->|imports| progress_bar_dart_f76af429
-    %% Omitted for readability: 15 nodes, 0 edges
+    %% Omitted for readability: 8 nodes, 0 edges
     class lib_data_progress_progress_store_93f7ff53 ui;
     class lib_data_progress_progress_store_progressstore_ff4af9e6 ui;
     class lib_data_progress_progress_store_sharedpreferenc_bd11c745 ui;
@@ -1607,11 +1596,11 @@ flowchart LR
     class lib_controllers_progress_controller_persist_dcc2059e function;
     class lib_controllers_progress_controller_states_f603b4ed function;
     class lib_controllers_progress_controller_store_d38a3912 ui;
+    class lib_controllers_progress_controller_assess_25ea7f0b async;
+    class lib_controllers_progress_controller_init_ce6d3486 function;
     class domain_models_kanji_state_dart_70d77d92 function;
     class domain_progress_progress_engine_dart_e557114c function;
     class dart_convert_b7330642 function;
-    class progress_bar_dart_f76af429 function;
-    class lib_ui_widgets_topic_tile_c36fb769 function;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -1645,7 +1634,7 @@ flowchart LR
   <td>2</td>
   <td><code>../../domain/models/kanji_state.dart</code><br><small style="color:var(--muted)"></small></td>
   <td><span class="tag tag-func">Function</span></td>
-  <td><code>home_screen.dart</code><br><small style="color:var(--muted)">ui/screens/home_screen.dart</small><br><code>progress_controller.dart</code><br><small style="color:var(--muted)">lib/controllers/progress_controller.dart</small><br><code>progress_screen.dart</code><br><small style="color:var(--muted)">ui/screens/progress_screen.dart</small><br>+2 more</td>
+  <td><code>home_screen.dart</code><br><small style="color:var(--muted)">ui/screens/home_screen.dart</small><br><code>learning_screen.dart</code><br><small style="color:var(--muted)">ui/screens/learning_screen.dart</small><br><code>progress_controller.dart</code><br><small style="color:var(--muted)">lib/controllers/progress_controller.dart</small><br>+3 more</td>
   <td>No direct outbound edge</td>
   <td>../../domain/models/kanji_state.dart node in project.</td>
 </tr>
@@ -1841,38 +1830,6 @@ flowchart LR
   <td>No direct outbound edge</td>
   <td>SharedPreferencesProgressStore node in data/progress/progress_store.dart.</td>
 </tr>
-<tr>
-  <td>27</td>
-  <td><code>topic_tile.dart</code><br><small style="color:var(--muted)">ui/widgets/topic_tile.dart</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>../../domain/models/kanji state.dart</code><br><code>package:flutter/material.dart</code><br><code>progress_bar.dart</code></td>
-  <td>topic_tile.dart node in ui/widgets/topic_tile.dart.</td>
-</tr>
-<tr>
-  <td>28</td>
-  <td><code>build</code><br><small style="color:var(--muted)">ui/widgets/topic_tile.dart</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>build node in ui/widgets/topic_tile.dart.</td>
-</tr>
-<tr>
-  <td>29</td>
-  <td><code>counts</code><br><small style="color:var(--muted)">ui/widgets/topic_tile.dart</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>counts node in ui/widgets/topic_tile.dart.</td>
-</tr>
-<tr>
-  <td>30</td>
-  <td><code>name</code><br><small style="color:var(--muted)">ui/widgets/topic_tile.dart</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>name node in ui/widgets/topic_tile.dart.</td>
-</tr>
 </table>
 
 <div class="grid">
@@ -1882,12 +1839,11 @@ flowchart LR
       <tr><th>File</th><th>Coverage</th></tr>
       <tr><td><code>lib/controllers/progress_controller.dart</code></td><td>15 nodes</td></tr>
 <tr><td><code>data/progress/progress_store.dart</code></td><td>8 nodes</td></tr>
-<tr><td><code>ui/widgets/topic_tile.dart</code></td><td>6 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: defines x26, imports x6, references x1, implements x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: defines x21, imports x4, references x1, implements x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -2686,8 +2642,206 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 10. progress_engine.dart ====== -->
-<h2 id="progress-engine-dart">10. progress_engine.dart</h2>
+<!-- ====== 10. app.dart ====== -->
+<h2 id="app-dart">10. app.dart</h2>
+<p>app.dart groups implementation around screens, screendart, appdart, apptitle, mostly in lib/app.dart. This section covers 14 nodes and 13 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: app.dart (14 nodes, 13 edges)
+    subgraph app_dart_External_generated_20d30708["External / generated"]
+        ui_screens_settings_screen_dart_0d5962d8("ui/screens/settings screen.dart")
+        ui_screens_splash_screen_dart_5fec02b2("ui/screens/splash screen.dart")
+        ui_screens_topic_detail_screen_dart_3cc83721("ui/screens/topic detail screen.dart")
+        ui_screens_error_screen_dart_82183dc9("ui/screens/error_screen.dart")
+        ui_screens_home_screen_dart_c3a777f0("ui/screens/home_screen.dart")
+        ui_screens_learning_screen_dart_50abeba4("ui/screens/learning screen.dart")
+        ui_screens_progress_screen_dart_f5bacb10("ui/screens/progress screen.dart")
+        ui_screens_review_screen_dart_4d3e150b("ui/screens/review screen.dart")
+    end
+    subgraph app_dart_lib_app_dart_383a3ff6["lib/app.dart"]
+        lib_app_bba65f97("app.dart")
+        lib_app_apptitle_68be9a62("appTitle<br/><small>lib/app.dart</small>")
+        lib_app_build_4a312e9b("build<br/><small>lib/app.dart</small>")
+        lib_app_buildtheme_ea25f9cf("buildTheme<br/><small>lib/app.dart</small>")
+        lib_app_controller_a6d0c2a5("controller<br/><small>lib/app.dart</small>")
+        lib_app_scheme_8271d675("scheme<br/><small>lib/app.dart</small>")
+    end
+    lib_app_bba65f97 -->|imports| ui_screens_settings_screen_dart_0d5962d8
+    lib_app_bba65f97 -->|imports| ui_screens_splash_screen_dart_5fec02b2
+    lib_app_bba65f97 -->|imports| ui_screens_topic_detail_screen_dart_3cc83721
+    lib_app_bba65f97 -->|imports| ui_screens_error_screen_dart_82183dc9
+    lib_app_bba65f97 -->|imports| ui_screens_home_screen_dart_c3a777f0
+    lib_app_bba65f97 -->|imports| ui_screens_learning_screen_dart_50abeba4
+    lib_app_bba65f97 -->|imports| ui_screens_progress_screen_dart_f5bacb10
+    lib_app_bba65f97 -->|imports| ui_screens_review_screen_dart_4d3e150b
+    class ui_screens_settings_screen_dart_0d5962d8 function;
+    class ui_screens_splash_screen_dart_5fec02b2 function;
+    class ui_screens_topic_detail_screen_dart_3cc83721 function;
+    class ui_screens_error_screen_dart_82183dc9 function;
+    class ui_screens_home_screen_dart_c3a777f0 function;
+    class ui_screens_learning_screen_dart_50abeba4 function;
+    class ui_screens_progress_screen_dart_f5bacb10 function;
+    class ui_screens_review_screen_dart_4d3e150b function;
+    class lib_app_bba65f97 function;
+    class lib_app_apptitle_68be9a62 function;
+    class lib_app_build_4a312e9b function;
+    class lib_app_buildtheme_ea25f9cf function;
+    class lib_app_controller_a6d0c2a5 function;
+    class lib_app_scheme_8271d675 function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>app.dart</code><br><small style="color:var(--muted)">lib/app.dart</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>../../app_scope.dart</code><br><code>../../controllers/app controller.dart</code><br><code>package:flutter/material.dart</code><br>+8 more</td>
+  <td>app.dart node in lib/app.dart.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>appTitle</code><br><small style="color:var(--muted)">lib/app.dart</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>appTitle node in lib/app.dart.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>build</code><br><small style="color:var(--muted)">lib/app.dart</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>build node in lib/app.dart.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>buildTheme</code><br><small style="color:var(--muted)">lib/app.dart</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>buildTheme node in lib/app.dart.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>controller</code><br><small style="color:var(--muted)">lib/app.dart</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>controller node in lib/app.dart.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>scheme</code><br><small style="color:var(--muted)">lib/app.dart</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>scheme node in lib/app.dart.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>ui/screens/error_screen.dart</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>app.dart</code><br><small style="color:var(--muted)">lib/app.dart</small></td>
+  <td>No direct outbound edge</td>
+  <td>ui/screens/error_screen.dart node in project.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>ui/screens/home_screen.dart</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>app.dart</code><br><small style="color:var(--muted)">lib/app.dart</small></td>
+  <td>No direct outbound edge</td>
+  <td>ui/screens/home_screen.dart node in project.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>ui/screens/learning_screen.dart</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>app.dart</code><br><small style="color:var(--muted)">lib/app.dart</small></td>
+  <td>No direct outbound edge</td>
+  <td>ui/screens/learning_screen.dart node in project.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>ui/screens/progress_screen.dart</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>app.dart</code><br><small style="color:var(--muted)">lib/app.dart</small></td>
+  <td>No direct outbound edge</td>
+  <td>ui/screens/progress_screen.dart node in project.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>ui/screens/review_screen.dart</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>app.dart</code><br><small style="color:var(--muted)">lib/app.dart</small></td>
+  <td>No direct outbound edge</td>
+  <td>ui/screens/review_screen.dart node in project.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>ui/screens/settings_screen.dart</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>app.dart</code><br><small style="color:var(--muted)">lib/app.dart</small></td>
+  <td>No direct outbound edge</td>
+  <td>ui/screens/settings_screen.dart node in project.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>ui/screens/splash_screen.dart</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>app.dart</code><br><small style="color:var(--muted)">lib/app.dart</small></td>
+  <td>No direct outbound edge</td>
+  <td>ui/screens/splash_screen.dart node in project.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>ui/screens/topic_detail_screen.dart</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>app.dart</code><br><small style="color:var(--muted)">lib/app.dart</small></td>
+  <td>No direct outbound edge</td>
+  <td>ui/screens/topic_detail_screen.dart node in project.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>lib/app.dart</code></td><td>6 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: imports x8, defines x5. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 11. progress_engine.dart ====== -->
+<h2 id="progress-engine-dart">11. progress_engine.dart</h2>
 <p>progress_engine.dart groups implementation around progress, enginedart, domain, applyassessment, mostly in domain/progress/progress_engine.dart. This section covers 9 nodes and 8 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -2825,8 +2979,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 11. kana_util.dart ====== -->
-<h2 id="kana-util-dart">11. kana_util.dart</h2>
+<!-- ====== 12. kana_util.dart ====== -->
+<h2 id="kana-util-dart">12. kana_util.dart</h2>
 <p>kana_util.dart groups implementation around kana, utildart, cleanreading, code, mostly in lib/core/kana_util.dart. This section covers 7 nodes and 6 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -2947,8 +3101,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 12. Japan Flag App Icon Flat Opaque Variant (iOS) ====== -->
-<h2 id="japan-flag-app-icon-flat-opaque-variant-ios">12. Japan Flag App Icon Flat Opaque Variant (iOS)</h2>
+<!-- ====== 13. Japan Flag App Icon Flat Opaque Variant (iOS) ====== -->
+<h2 id="japan-flag-app-icon-flat-opaque-variant-ios">13. Japan Flag App Icon Flat Opaque Variant (iOS)</h2>
 <p>Japan Flag App Icon Flat Opaque Variant (iOS) groups implementation around japan, flag, app, icon, mostly in assets/icons/japan_flat.png, assets/icons/japan.png. This section covers 2 nodes and 1 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -3015,8 +3169,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 13. @visibleForTesting ====== -->
-<h2 id="visiblefortesting">13. @visibleForTesting</h2>
+<!-- ====== 14. @visibleForTesting ====== -->
+<h2 id="visiblefortesting">14. @visibleForTesting</h2>
 <p>@visibleForTesting groups implementation around visiblefortesting, mostly in unmapped files. This section covers 1 nodes and 0 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -3071,8 +3225,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 14. graphify Section in AGENTS.md ====== -->
-<h2 id="graphify-section-in-agents-md">14. graphify Section in AGENTS.md</h2>
+<!-- ====== 15. graphify Section in AGENTS.md ====== -->
+<h2 id="graphify-section-in-agents-md">15. graphify Section in AGENTS.md</h2>
 <p>graphify Section in AGENTS.md groups implementation around agentsmd, graphify, section, mostly in AGENTS.md. This section covers 1 nodes and 0 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -3133,17 +3287,17 @@ flowchart LR
   <div class="card">
     <h4>Graph</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>Nodes</td><td>391</td></tr>
-      <tr><td>Edges</td><td>510</td></tr>
+      <tr><td>Nodes</td><td>409</td></tr>
+      <tr><td>Edges</td><td>548</td></tr>
       <tr><td>Hyperedges</td><td>0</td></tr>
-      <tr><td>Communities</td><td>17</td></tr>
-      <tr><td>Documented Sections</td><td>13</td></tr>
+      <tr><td>Communities</td><td>18</td></tr>
+      <tr><td>Documented Sections</td><td>14</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Edge Confidence</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>EXTRACTED</td><td>503</td></tr>
+      <tr><td>EXTRACTED</td><td>541</td></tr>
       <tr><td>INFERRED</td><td>7</td></tr>
       <tr><td>AMBIGUOUS</td><td>0</td></tr>
     </table>
@@ -3152,7 +3306,7 @@ flowchart LR
 
 <div style="text-align:center; padding:40px 0; color: var(--muted); font-size:0.9rem;">
   <p>kanji_app — Architecture Documentation</p>
-  <p>Generated: 2026-09-21 14:49 UTC · graphify callflow-html</p>
+  <p>Generated: 2026-09-22 14:47 UTC · graphify callflow-html</p>
 </div>
 
 </div><!-- .container -->

@@ -10,6 +10,11 @@ void main() {
 
     expect(find.text('Kanji Beginner'), findsOneWidget);
     expect(find.text('0 of 196 kanji learned'), findsOneWidget);
+    expect(find.text('Overall Progress'), findsOneWidget);
+    expect(find.text('0 in progress · 196 not started'), findsOneWidget);
+
+    // Primary CTA resumes the first topic with unlearned kanji.
+    expect(find.text('Continue'), findsOneWidget);
 
     // Review CTA says nothing to review yet (top card, visible now).
     expect(find.text('196 kanji to review'), findsOneWidget);
@@ -54,5 +59,9 @@ void main() {
 
     expect(find.text('Settings'), findsOneWidget);
     expect(find.text('Reset all progress'), findsOneWidget);
+
+    // Dataset diagnostics moved here from Home (issue #10, P1.4).
+    expect(find.text('Diagnostics'), findsOneWidget);
+    expect(find.textContaining('kanji records were skipped'), findsOneWidget);
   });
 }

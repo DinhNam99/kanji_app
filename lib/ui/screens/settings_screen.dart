@@ -41,6 +41,15 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final app = AppScope.of(context);
+    final content = app.content;
+    final hasDiagnostics = content != null && content.warnings.isNotEmpty;
+    final diagnostics = hasDiagnostics
+        ? (content.skippedRecords > 0
+            ? 'Some kanji records were skipped (${content.skippedRecords}) — '
+                'incomplete entries are skipped at load instead of failing.'
+            : 'Data loaded with ${content.warnings.length} warning(s).')
+        : null;
     return Scaffold(
       appBar: AppBar(title: const Text('Settings')),
       body: ListView(
@@ -60,6 +69,17 @@ class SettingsScreen extends StatelessWidget {
               'works offline.',
             ),
           ),
+          if (diagnostics != null) ...[
+            const Divider(),
+            ListTile(
+              leading: Icon(
+                Icons.warning_amber_outlined,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
+              title: const Text('Diagnostics'),
+              subtitle: Text(diagnostics),
+            ),
+          ],
         ],
       ),
     );
