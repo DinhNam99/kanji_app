@@ -4,6 +4,7 @@ import '../../app_scope.dart';
 import '../../controllers/app_controller.dart';
 import '../../core/sound_effects.dart';
 import '../../domain/models/kanji.dart';
+import '../../domain/models/kanji_state.dart';
 import '../../domain/models/topic.dart';
 import '../../domain/progress/progress_engine.dart';
 import '../widgets/kanji_card.dart';
@@ -22,9 +23,20 @@ class _LearningScreenState extends State<LearningScreen> {
       ModalRoute.of(context)!.settings.arguments! as Topic;
   late final AppController _app = AppScope.read(context);
 
-  int _index = 0;
+  /// Starts at the first card the user hasn't fully learned yet (so Home's
+  /// "Continue" and the topic-detail CTA resume mid-topic); falls back to the
+  /// first card when the whole topic is already learned.
+  late int _index = _initialIndex();
   bool _revealed = false;
   bool _finished = false;
+
+  int _initialIndex() {
+    final kanji = _topic.kanji;
+    for (var i = 0; i < kanji.length; i++) {
+      if (_app.progress.stateOf(kanji[i].char) != KanjiState.learned) return i;
+    }
+    return 0;
+  }
 
   TopicKanji get _entry => _topic.kanji[_index];
 

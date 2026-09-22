@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 
 import '../data/content/content_repository.dart';
 import '../data/progress/progress_store.dart';
+import '../domain/models/topic.dart';
 import 'progress_controller.dart';
 
 enum AppStatus { loading, ready, error }
@@ -24,6 +25,19 @@ class AppController extends ChangeNotifier {
   LoadedContent? content;
 
   bool get isReady => status == AppStatus.ready;
+
+  /// First topic that still has unlearned kanji — powers the Home "Continue"
+  /// CTA. Null when every topic has been seen at least once (nothing new to
+  /// learn; Review covers the rest).
+  Topic? get resumeTopic {
+    final loaded = content;
+    if (loaded == null) return null;
+    for (final topic in loaded.topics) {
+      final counts = progress.topicCounts(topic);
+      if (counts.learned + counts.learning < counts.total) return topic;
+    }
+    return null;
+  }
 
   Future<void> load() async {
     status = AppStatus.loading;
